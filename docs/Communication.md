@@ -57,4 +57,5 @@ You should see the following output on system 2.
 ```
 
 If you see the output, the communication has been establised successfully.
-<!-- TODO: Talk about aliases -->
+
+#### Note: ALternate method would be using alias to name the ROS variables.
