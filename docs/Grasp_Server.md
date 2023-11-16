@@ -23,7 +23,7 @@ Once the custom service file is created, the CMakeLists.txt is updated with the 
 
 To run the grasp server, run the following commands in terminal:
 ```
-roslaunch graspit_interface graspit_interface
+roslaunch graspit_interface graspit_interface.launch
 ```
 
 Once the graspit_window has launched, in a new terminal window, run the following command:
