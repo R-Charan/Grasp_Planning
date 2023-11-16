@@ -24,11 +24,8 @@ def grasp():
 	# Clear Graspit World and import the world file that contains the table and the gripper
 	GraspitCommander.clearWorld()
 	# Combined import file of table and gripper.
-	GraspitCommander.loadWorld("grasp")
-	# GraspitCommander.importRobot("RobotIQ")
-	
+	GraspitCommander.loadWorld("grasp")	
 	GraspitCommander.importGraspableBody("/home/asl-7/Downloads/Part1(m).STL", object_pose)
-	# GraspitCommander.importGraspableBody("cylinder", object_pose)
 
 	rospy.sleep(0.1)
 
