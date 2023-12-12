@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://wiki.ros.org/xacro" name="combined">
+
+    <xacro:include filename="$(find ur_description)/urdf/ur5e.xacro"/>
+    <xacro:include filename="$(find robotiq_3f_gripper_visualization)/cfg/robotiq-3f-gripper_articulated.xacro"/>
+
+    <!-- Define the box link -->
+    <link name="base_box">
+        <visual>
+            <geometry>
+                <box size="2 2 0.01"/>
+            </geometry>
+        </visual>
+        <collision>
+  11       <geometry>
+  12         <box size="2 2 0.01"/>
+  13       </geometry>
+  14     </collision>
+    </link>
+
+    <joint name="box_joint" type="fixed">
+        <parent link="base_link"/>
+        <child link="base_box"/>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+    </joint>
+
+    <joint name="grip_joint" type="fixed">
+        <parent link="wrist_3_link"/>
+        <child link="palm"/>
+        <origin xyz="0 0 0.05" rpy="1.57 0 0"/>
+    </joint>
+
+</robot>
+
