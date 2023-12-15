@@ -17,7 +17,7 @@ gedit .bashrc
 Go to the last line of the file and add the following:
 
 ```
-export ROS_MASTER_URI=192.168.1.50:11311 
+export ROS_MASTER_URI=https://192.168.1.50:11311 
 export ROS_IP=192.168.1.50 # System 1's IP address to be used
 ```
 Source the changes
@@ -32,7 +32,7 @@ gedit .bashrc
 Go to the last line of the file and add the following:
 
 ```
-export ROS_MASTER_URI=192.168.1.50:11311 # System 1's IP address to be used
+export ROS_MASTER_URI=https://192.168.1.50:11311 # System 1's IP address to be used
 export ROS_IP=192.168.1.101 # System 2's IP address to be used
 ```
 Source the changes
