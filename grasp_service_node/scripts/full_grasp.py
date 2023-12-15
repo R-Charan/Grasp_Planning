@@ -6,9 +6,6 @@ from geometry_msgs.msg import Pose
 from grasp_service_node.srv import pose_dof, pose_dofResponse
 from graspit_commander import GraspitCommander
 
-# Perform transformation of gripper pose from object frame to world frame with transformation.py file
-from transformation import object_world_transformation
-
 epsi = []
 
 def callback(request):
@@ -27,16 +24,17 @@ def callback(request):
         for grasp in planned_grasps.grasps:
             epsi.append(grasp.epsilon_quality)
 
+        # Determining the best grasp by finding the index of the grasp with highest epsilon quality
         arg_max = np.argmax(np.array(epsi))
         best_pose = planned_grasps.grasps[arg_max].pose
 
-        # The best_pose is in the objects frame of reference -> transforming the pose to world frame in the next step
-        transformed_pose = object_world_transformation(best_pose, request.obj_pose)
         rospy.loginfo(best_pose)
         dofs = planned_grasps.grasps[arg_max].dofs
+
+        # Manipulating the value to not include this same grasp result in the subsequent request iteration
         epsi[arg_max] = -10.0
         response = pose_dofResponse()
-        response.gripper_pose = transformed_pose
+        response.gripper_pose = best_pose
         response.dofs = dofs
         return response
     
@@ -44,14 +42,16 @@ def callback(request):
     # All information regarding the grasp is already available, just finding the best grasp pose and passing it to the execution system.
     # TODO: Instead of counter, think of how to send all the data together(not the priority right now)
     elif request.counter > 0:
+        # Determining the best grasp by finding the index of the grasp with highest epsilon quality
         arg_max = np.argmax(np.array(epsi))
         best_pose = planned_grasps.grasps[arg_max].pose
-        transformed_pose = object_world_transformation(best_pose, request.obj_pose)
         rospy.loginfo(best_pose)
         dofs = planned_grasps.grasps[arg_max].dofs
+        
+        # Manipulating the value to not include this same grasp result in the subsequent request iteration
         epsi[arg_max] = -10.0
         response = pose_dofResponse()
-        response.gripper_pose = transformed_pose
+        response.gripper_pose = best_pose
         response.dofs = dofs
         return response
        
